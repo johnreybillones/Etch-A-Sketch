@@ -1,9 +1,18 @@
 #grid {
 	display: grid;
-	gap: 5px; /* space between boxes */
+	gap: 3px; 
 	margin-top: 20px;
+	touch-action: none;
+
+	width: 90vmin; 
+	height: 90vmin; 
+	margin-left: auto;
+	margin-right: auto;
 }
 .cell {
+	cursor: pointer;
 	border: 1px solid #333;
-	aspect-ratio: 1 / 1; /* keeps squares */
+	aspect-ratio: 1 / 1;
+	transition: background 0.3s;
+	user-select: none;
 }
