@@ -20,20 +20,20 @@ document.addEventListener('DOMContentLoaded', () => {
   createBtn.addEventListener('click', generateGrid);
 
   // Event delegation on grid
-  grid.addEventListener('mousedown', function (e) {
+  grid.addEventListener('pointerdown', function (e) {
     if (e.button !== 0) return;
     drawing = true;
     paintAtEvent(e);
     e.preventDefault();
   });
 
-  grid.addEventListener('mousemove', function (e) {
+  grid.addEventListener('pointermove', function (e) {
     if (!drawing) return;
     paintAtEvent(e);
   });
 
-  window.addEventListener('mouseup', () => { drawing = false; });
-  window.addEventListener('mousecancel', () => { drawing = false; });
+  window.addEventListener('pointerup', () => { drawing = false; });
+  window.addEventListener('pointercancel', () => { drawing = false; });
 
   function generateGrid() {
     const size = Number(sizeInput.value) || 0;
