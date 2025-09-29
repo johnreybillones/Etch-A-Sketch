@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Event delegation on grid
   grid.addEventListener('pointerdown', function (e) {
-    if (e.button !== 0) return;
+    if (e.pointerType == 'mouse' && e.button !== 0) return;
     drawing = true;
     paintAtEvent(e);
     e.preventDefault();
@@ -34,6 +34,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('pointerup', () => { drawing = false; });
   window.addEventListener('pointercancel', () => { drawing = false; });
+
+    // --- TOUCH FALLBACK (if PointerEvent not supported) ---
+  if (!window.PointerEvent) {
+    grid.addEventListener('touchstart', (e) => {
+    drawing = true;
+    paintAtEvent(e.touches[0]); // first finger
+    e.preventDefault();
+    });
+
+    grid.addEventListener('touchmove', (e) => {
+      if (!drawing) return;
+      paintAtEvent(e.touches[0]);
+      e.preventDefault();
+    });
+
+    window.addEventListener('touchend', () => { drawing = false; });
+    window.addEventListener('touchcancel', () => { drawing = false; });
+	}
 
   function generateGrid() {
     const size = Number(sizeInput.value) || 0;
